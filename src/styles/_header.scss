@@ -1,0 +1,26 @@
+.header {
+  margin-bottom: 1em;
+}
+.imgBackground {
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px;
+}
+.bigScreen {
+  display: block;
+}
+.smallScreen {
+  display: none;
+}
+.selectedMenu {
+  color: black;
+}
+
+@media screen and (max-width: 500px) {
+  .smallScreen {
+    display: block;
+  }
+  .bigScreen {
+    display: none;
+  }
+}
