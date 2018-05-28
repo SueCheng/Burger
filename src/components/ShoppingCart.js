@@ -1,36 +1,69 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Segment, Dimmer, Loader, Table, Label } from "semantic-ui-react";
-import { INGREDIENTS } from "../config/ingredients.js";
+import {
+  Container,
+  Segment,
+  Dimmer,
+  Loader,
+  Table,
+  Button
+} from "semantic-ui-react";
+import { itemSchema } from "../config/itemSchema.js";
 import { fetchShoppingcart } from "../actions";
 import _ from "lodash";
-
+import { NavLink } from "react-router-dom";
+import errorShowModal from "./hoc/errorShowModal";
+import axiosInstance from "../axios-instance";
+import Aux from "./hoc/aux";
+/*
+ category: String,
+  quantity: Number,
+  price: Number,
+  config: { type: Map, of: Number }
+  */
 class ShoppingCart extends Component {
   componentDidMount() {
-    this.props.fetchShoppingcart();
+    if (!this.props.isCheckoutPage)
+      //if it's checkout page,don't fetch again
+      this.props.fetchShoppingcart();
   }
-  ingredientNameCtrls() {
-    return INGREDIENTS.map(ingredient => {
-      return <Table.HeaderCell key={ingredient}>{ingredient}</Table.HeaderCell>;
-    });
+  headerCtrls() {
+    return (
+      <Table.Header>
+        <Table.Row textAlign="center">
+          {itemSchema.map(itemKey => {
+            return <Table.HeaderCell key={itemKey}>{itemKey}</Table.HeaderCell>;
+          })}
+        </Table.Row>
+      </Table.Header>
+    );
   }
   cartItemCtrls(cartItem, index) {
     return (
-      <Table.Row key={index}>
-        <Table.Cell>
-          <Label ribbon>Burger</Label>
-        </Table.Cell>
-        {INGREDIENTS.map(ingredient => {
-          return (
-            <Table.Cell key={ingredient}>{cartItem[ingredient]}</Table.Cell>
-          );
+      <Table.Row key={index} textAlign="center">
+        {itemSchema.map(itemKey => {
+          if (itemKey === "config")
+            return (
+              <Table.Cell key={itemKey}>
+                {JSON.stringify(cartItem[itemKey])}
+              </Table.Cell>
+            );
+          else
+            return <Table.Cell key={itemKey}>{cartItem[itemKey]}</Table.Cell>;
         })}
-        <Table.Cell>{cartItem.price}</Table.Cell>
       </Table.Row>
     );
   }
+  gotoPay() {
+    if (!this.props.isCheckoutPage && this.props.cartItems.length > 0)
+      return (
+        <Button as={Aux(NavLink)} exact to="/checkout">
+          Go to Pay
+        </Button>
+      );
+  }
   render() {
-    if (this.props.loading) {
+    if (this.props.loading)
       //show loading
       return (
         <Segment>
@@ -42,30 +75,30 @@ class ShoppingCart extends Component {
           <div className="scLoadingBackground" />
         </Segment>
       );
-    }
-    return (
-      <Table unstackable>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Product</Table.HeaderCell>
-            {this.ingredientNameCtrls()}
-            <Table.HeaderCell>Price</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {this.props.cartItems.map((cartItem, index) =>
-            this.cartItemCtrls(cartItem, index)
-          )}
-        </Table.Body>
-      </Table>
-    );
+    else
+      return (
+        <Container>
+          <Table unstackable structured celled>
+            {this.headerCtrls()}
+            <Table.Body>
+              {this.props.cartItems.map((cartItem, index) =>
+                this.cartItemCtrls(cartItem, index)
+              )}
+            </Table.Body>
+          </Table>
+          {this.gotoPay()}
+        </Container>
+      );
   }
 }
 function mapStateToProps(state) {
   return {
     loading: state.shoppingcart.loading,
-    cartItems: _.values(_.omit(state.shoppingcart, "loading"))
+    cartItems: _.omit(state.shoppingcart, "loading").cartItems
   };
 }
-export default connect(mapStateToProps, { fetchShoppingcart })(ShoppingCart);
+
+ShoppingCart = connect(mapStateToProps, { fetchShoppingcart })(ShoppingCart);
+ShoppingCart = errorShowModal(ShoppingCart, axiosInstance);
+
+export default ShoppingCart;

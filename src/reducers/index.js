@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import initIngredientsReducer from "./initIngredientsReducer";
 import shoppingcartReducer from "./shoppingcartReducer";
 import ordersReducer from "./ordersReducer";
 import { reducer as formReducer } from "redux-form";
+import authReducer from "./authReducer";
 /*
 function rootReducer(state, action) {
   const combineReducer = combineReducers({
@@ -33,7 +33,7 @@ function getError(intermediateState, action) {
 export default rootReducer;
 */
 export default combineReducers({
-  initIngredients: initIngredientsReducer,
+  auth: authReducer,
   form: formReducer,
   shoppingcart: shoppingcartReducer,
   orders: ordersReducer

@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchUser } from "../actions";
 
 import Header from "./Header";
 import Checkout from "./Checkout";
 import Orders from "./Orders";
 import NotFound from "./NotFound";
+import SignupForm from "./SignupForm";
+import SigninLocalForm from "./SigninLocalForm";
+import ShoppingCart from "./ShoppingCart";
+
 import BurgerBuilder from "./BurgerBuilder/BurgerBuilder";
 import { Sidebar, Menu, Image } from "semantic-ui-react";
 import Media from "react-media";
@@ -13,6 +19,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { sidebarVisible: false };
+  }
+  //get auth user
+  componentDidMount() {
+    this.props.fetchUser();
   }
   hideSidebarIfVisible() {
     if (this.state.sidebarVisible) {
@@ -62,7 +72,16 @@ class App extends Component {
             <Sidebar.Pusher onClick={this.hideSidebarIfVisible.bind(this)}>
               <Header toggleSidebar={this.toggleSidebar.bind(this)} />
               <Switch>
+                <Route exact path="/signup" component={SignupForm} />
+                <Route exact path="/signinlocal" component={SigninLocalForm} />
                 <Route exact path="/" component={BurgerBuilder} />
+                <Route
+                  exact
+                  path="/shoppingcart"
+                  render={props => (
+                    <ShoppingCart isCheckoutPage={false} {...props} />
+                  )}
+                />
                 <Route exact path="/orders" component={Orders} />
                 <Route exact path="/checkout" component={Checkout} />
                 <Route component={NotFound} />
@@ -74,5 +93,5 @@ class App extends Component {
     );
   }
 }
-
+App = connect(null, { fetchUser })(App);
 export default App;

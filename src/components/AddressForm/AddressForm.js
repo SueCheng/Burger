@@ -7,27 +7,42 @@ import axiosInstance from "../../axios-instance";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import errorShowModal from "../hoc/errorShowModal";
+import { addOrder } from "../../actions";
 
 class AddressForm extends Component {
   async submit(values) {
-    try {
-      const order = {
-        address: values,
-        cartItems: this.props.cartItems,
-        status: "paid"
-      };
-      await axiosInstance.post("/orders.json", order);
-      this.props.history.push("/orders");
-    } catch (error) {
-      //error has been handled by axios inteceptors to show a modal dialog of error. keep going to checkout page
-      throw new SubmissionError({
-        _error: "Order failed"
-      });
-    }
+    const order = {
+      //set the totalPrice here
+      totalPrice:
+        this.props.cartItems
+          .reduce(
+            (accumulator, currentValue) => accumulator + currentValue.price,
+            0
+          )
+          .toFixed(1) * 1,
+      address: JSON.stringify(values),
+      items: this.props.cartItems,
+      status: "paid"
+    };
+    let res = this.props.addOrder(order);
+    //add order success then go to homepage, or if fail ,show the specific reason
+    res.then(res => {
+      if (res) {
+        if (res.status === 200) this.props.history.push("/");
+        else throw new SubmissionError({ _error: res.data });
+      } else {
+        throw new SubmissionError({ _error: "Network Error Detected" });
+      }
+    });
   }
   render() {
     return (
-      <Form onSubmit={this.props.handleSubmit(this.submit.bind(this))}>
+      <Form
+        onSubmit={this.props.handleSubmit(this.submit.bind(this))}
+        style={{ marginTop: 20 }}
+      >
+        {this.props.error && <strong>{this.props.error}</strong>}
         <Form.Group>
           <Field name="firstName" component={CustomNameBar} label="FirstName" />
           <Field name="lastName" component={CustomNameBar} label="LastName" />
@@ -80,9 +95,10 @@ AddressForm = reduxForm({
 
 function mapStateToProps(state) {
   return {
-    cartItems: _.values(_.omit(state.shoppingcart, "loading"))
+    cartItems: _.omit(state.shoppingcart, "loading").cartItems
   };
 }
-AddressForm = connect(mapStateToProps)(AddressForm);
+AddressForm = connect(mapStateToProps, { addOrder })(AddressForm);
 AddressForm = withRouter(AddressForm);
+AddressForm = errorShowModal(AddressForm, axiosInstance);
 export default AddressForm;

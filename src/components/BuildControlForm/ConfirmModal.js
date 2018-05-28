@@ -6,17 +6,10 @@ import { Grid, List, Label } from "semantic-ui-react";
 import { TotalPrice, calculatePrice } from "./TotalPrice";
 import { withRouter } from "react-router";
 import axiosInstance from "../../axios-instance";
+import errorShowModal from "../hoc/errorShowModal";
+import { addItemToShoppingcart } from "../../actions";
 
 class ConfirmModal extends Component {
-  confirmShoppingcart = async (product, history) => {
-    try {
-      await axiosInstance.post("/shoppingcart.json", product);
-      history.push("/checkout");
-    } catch (error) {
-      //error has been handled by axios inteceptors to show a modal dialog of error. keep going to checkout page
-      return;
-    }
-  };
   render() {
     return (
       <Modal open={this.props.open} onClose={this.props.onClose}>
@@ -45,16 +38,18 @@ class ConfirmModal extends Component {
           <Button
             positive
             onClick={() => {
-              this.confirmShoppingcart(
-                {
-                  price: calculatePrice(this.props.formValues),
-                  ...this.props.formValues
-                },
-                this.props.history
-              );
+              this.props.addItemToShoppingcart({
+                category: "Burger",
+                quantity: 1,
+                price: calculatePrice(this.props.formValues),
+                config: { ...this.props.formValues }
+              });
+              //close this ConfirmModal,reset parent form and don't respond to server submission fail
+              this.props.onClose();
+              this.props.resetParentForm();
             }}
           >
-            Confirm
+            Add to ShoppingCart
           </Button>
           <Button onClick={this.props.onClose}>Cancel</Button>
         </Modal.Actions>
@@ -66,9 +61,13 @@ class ConfirmModal extends Component {
 function mapStateToProps(state) {
   return { formValues: state.form.buildControlForm.values };
 }
-ConfirmModal = connect(mapStateToProps)(ConfirmModal);
+ConfirmModal = connect(mapStateToProps, { addItemToShoppingcart })(
+  ConfirmModal
+);
 
 //make ConfirmModal get history prop
 ConfirmModal = withRouter(ConfirmModal);
+
+ConfirmModal = errorShowModal(ConfirmModal, axiosInstance);
 
 export default ConfirmModal;

@@ -51,6 +51,9 @@ class CustomSuburbBar extends Component {
     });
   };
 
+  concatAddress(addr) {
+    return `${addr.title}  ${addr.postcode}  ${addr.state}`;
+  }
   render() {
     let { input, label, meta: { touched, error, warning } } = this.props;
     const { isLoading, value, results } = this.state;
@@ -62,7 +65,7 @@ class CustomSuburbBar extends Component {
             loading={isLoading}
             onResultSelect={(e, { result }) => {
               this.handleResultSelect(e, { result });
-              input.onChange(JSON.stringify(result));
+              input.onChange(this.concatAddress(result));
             }}
             onSearchChange={(e, { value }) => {
               const handleSearchChange = _.debounce(

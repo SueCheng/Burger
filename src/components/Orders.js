@@ -2,16 +2,81 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { fetchOrders } from "../actions";
 import _ from "lodash";
-import { Segment, Dimmer, Loader, Table } from "semantic-ui-react";
+import {
+  Container,
+  Segment,
+  Dimmer,
+  Loader,
+  Table,
+  List,
+  Message
+} from "semantic-ui-react";
+import { itemSchema } from "../config/itemSchema.js";
+import errorShowModal from "./hoc/errorShowModal";
+import axiosInstance from "../axios-instance";
 
 class Orders extends Component {
   componentDidMount() {
     this.props.fetchOrders();
   }
+  headerCtrls() {
+    return (
+      <Table.Header>
+        <Table.Row textAlign="center">
+          {itemSchema.map(itemKey => {
+            return <Table.HeaderCell key={itemKey}>{itemKey}</Table.HeaderCell>;
+          })}
+        </Table.Row>
+      </Table.Header>
+    );
+  }
   orderItemCtrls(orderItem, index) {
     return (
+      <Table.Row key={index} textAlign="center">
+        {itemSchema.map(itemKey => {
+          if (itemKey === "config")
+            return (
+              <Table.Cell key={itemKey}>
+                {JSON.stringify(orderItem[itemKey])}
+              </Table.Cell>
+            );
+          else
+            return <Table.Cell key={itemKey}>{orderItem[itemKey]}</Table.Cell>;
+        })}
+      </Table.Row>
+    );
+  }
+  orderTable(order, index) {
+    return (
       <Fragment key={index}>
-        <Table.Row /*key={`${index}0`}*/>
+        <Table unstackable structured celled>
+          {this.headerCtrls()}
+          <Table.Body>
+            {order.items.map((orderItem, index) =>
+              this.orderItemCtrls(orderItem, index)
+            )}
+          </Table.Body>
+        </Table>
+        <List divided>
+          <List.Item>
+            <List.Content floated="right">
+              Total Price {order.totalPrice}
+            </List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Content floated="right">Address {order.address}</List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Content floated="right">Status {order.status}</List.Content>
+          </List.Item>
+        </List>
+      </Fragment>
+    );
+  }
+  /*orderItemCtrls(orderItem, index) {
+    return (
+      <Fragment key={index}>
+        <Table.Row key={`${index}0`}>
           <Table.Cell rowSpan={orderItem.cartItems.length}>
             {JSON.stringify(orderItem.address)}
           </Table.Cell>
@@ -29,6 +94,13 @@ class Orders extends Component {
         })}
       </Fragment>
     );
+  }*/
+  renderOrderTables() {
+    if (this.props.orderList.length > 0)
+      return this.props.orderList.map((order, index) => {
+        return this.orderTable(order, index);
+      });
+    else return <Message>You haven't order anything</Message>;
   }
   render() {
     if (this.props.loading) {
@@ -44,29 +116,16 @@ class Orders extends Component {
         </Segment>
       );
     }
-    return (
-      <Table unstackable structured celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Address</Table.HeaderCell>
-            <Table.HeaderCell>Status</Table.HeaderCell>
-            <Table.HeaderCell>Items</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {this.props.orderList.map((orderItem, index) =>
-            this.orderItemCtrls(orderItem, index)
-          )}
-        </Table.Body>
-      </Table>
-    );
+    return <Container>{this.renderOrderTables()}</Container>;
   }
 }
 function mapStateToProps(state) {
   return {
     loading: state.orders.loading,
-    orderList: _.values(_.omit(state.orders, "loading"))
+    orderList: _.omit(state.orders, "loading").orderList
   };
 }
+
 Orders = connect(mapStateToProps, { fetchOrders })(Orders);
+Orders = errorShowModal(Orders, axiosInstance);
 export default Orders;

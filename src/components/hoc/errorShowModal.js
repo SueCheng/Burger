@@ -27,6 +27,13 @@ const errorShowModal = (WrappedComponent, axios) => {
     onCloseModal() {
       this.setState({ error: null });
     }
+    getErrMsg() {
+      if (this.state.error) {
+        if (this.state.error.response && this.state.error.response.data)
+          return this.state.error.response.data;
+        return this.state.error.message;
+      } else return null;
+    }
     render() {
       return (
         <div>
@@ -36,7 +43,7 @@ const errorShowModal = (WrappedComponent, axios) => {
           >
             <Modal.Header>Error</Modal.Header>
             <Modal.Content>
-              <p>{this.state.error ? this.state.error.message : null}</p>
+              <p>{this.getErrMsg()}</p>
             </Modal.Content>
             <Modal.Actions>
               <Button

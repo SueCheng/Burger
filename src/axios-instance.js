@@ -1,6 +1,3 @@
 import axios from "axios";
-import { DBURL } from "./config/db";
-const instance = axios.create({
-  baseURL: DBURL
-});
+const instance = axios.create();
 export default instance;

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import IngredientCtrlField from "./IngredientCtrlField";
-import _ from "lodash";
 import { INGREDIENTS } from "../../config/ingredients";
 import { Grid, Button } from "semantic-ui-react";
 import { TotalPrice } from "./TotalPrice";
@@ -49,6 +48,7 @@ class buildControlForm extends Component {
             <ConfirmModal
               open={this.state.openModal}
               onClose={this.closeModal.bind(this)}
+              resetParentForm={this.props.reset.bind(this)}
             />
           </Grid.Column>
           <Grid.Column computer={5}>
@@ -68,11 +68,8 @@ buildControlForm = connect(state => ({
 
 buildControlForm = reduxForm({
   form: "buildControlForm",
-  enableReinitialize: true
+  enableReinitialize: true,
+  initialValues: { salad: 0, bacon: 0, cheese: 0, meat: 0 }
 })(buildControlForm);
-
-buildControlForm = connect(state => ({
-  initialValues: _.pick(state.initIngredients, INGREDIENTS)
-}))(buildControlForm);
 
 export default buildControlForm;
