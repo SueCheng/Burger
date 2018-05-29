@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/styles.scss";
 import App from "./components/App";
-import registerServiceWorker from "./registerServiceWorker";
+import registerServiceWorker, { unregister } from "./registerServiceWorker";
 
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -23,4 +23,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-registerServiceWorker();
+//registerServiceWorker();
+unregister();
