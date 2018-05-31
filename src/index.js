@@ -9,7 +9,7 @@ import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducers from "./reducers";
 
-function updateWidth() {
+/*function updateWidth() {
   let viewport = document.querySelector("meta[name=viewport]");
   viewport.setAttribute(
     "content",
@@ -17,7 +17,7 @@ function updateWidth() {
   );
 }
 
-updateWidth();
+updateWidth();*/
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 ReactDOM.render(
   <Provider
