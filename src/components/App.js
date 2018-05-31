@@ -54,7 +54,7 @@ class App extends Component {
   shortenLongString(str) {
     if (str.length > 10) {
       return str.substr(0, 10) + "...";
-    }
+    } else return str;
   }
   renderUserNameId(auth) {
     if (auth) {
