@@ -20,6 +20,7 @@ class App extends Component {
     super(props);
     this.state = { sidebarVisible: false };
   }
+
   //get auth user
   componentDidMount() {
     this.props.fetchUser();
@@ -70,7 +71,15 @@ class App extends Component {
       return (
         <Dropdown item text={this.renderUserNameId(this.props.auth)}>
           <Dropdown.Menu>
-            <Dropdown.Item as={NavLink} exact to="/orders" text="Orders" />
+            <Dropdown.Item
+              as={NavLink}
+              onClick={(event, data) => {
+                this.setState({ sidebarVisible: false });
+              }}
+              exact
+              to="/orders"
+              text="Orders"
+            />
             <Dropdown.Item as="a" href="/auth/logout" text="Logout" />
           </Dropdown.Menu>
         </Dropdown>
