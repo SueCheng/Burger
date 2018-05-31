@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <Media query="(max-width:500px)">
+        <Media query="(max-width:650px)">
           {matches =>
             matches ? (
               <Menu color="brown" size="massive" inverted>

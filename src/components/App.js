@@ -51,15 +51,20 @@ class App extends Component {
       sidebarVisible: !this.state.sidebarVisible
     });
   }
+  shortenLongString(str) {
+    if (str.length > 10) {
+      return str.substr(0, 10) + "...";
+    }
+  }
   renderUserNameId(auth) {
     if (auth) {
       switch (auth.loginMethod) {
         case "facebook":
-          return `Welcome ${auth.facebook.facebookId}`;
+          return `Welcome ${this.shortenLongString(auth.facebook.facebookId)}`;
         case "google":
-          return `Welcome ${auth.google.googleId}`;
+          return `Welcome ${this.shortenLongString(auth.google.googleId)}`;
         case "local":
-          return `Welcome ${auth.local.userName}`;
+          return `Welcome ${this.shortenLongString(auth.local.userName)}`;
         default:
           return null;
       }
@@ -131,7 +136,7 @@ class App extends Component {
         <div>
           <Sidebar.Pushable>
             <Media
-              query="(max-width:500px)"
+              query="(max-width:650)" //650px could insure the right menu showed completely
               render={() => (
                 <Sidebar
                   as={Menu}

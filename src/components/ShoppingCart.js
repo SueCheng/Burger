@@ -78,7 +78,7 @@ class ShoppingCart extends Component {
     else
       return (
         <Container>
-          <Table unstackable structured celled>
+          <Table structured celled>
             {this.headerCtrls()}
             <Table.Body>
               {this.props.cartItems.map((cartItem, index) =>

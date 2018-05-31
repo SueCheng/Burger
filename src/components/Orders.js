@@ -49,7 +49,7 @@ class Orders extends Component {
   orderTable(order, index) {
     return (
       <Fragment key={index}>
-        <Table unstackable structured celled>
+        <Table structured celled>
           {this.headerCtrls()}
           <Table.Body>
             {order.items.map((orderItem, index) =>
