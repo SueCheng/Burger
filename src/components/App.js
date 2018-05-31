@@ -136,7 +136,7 @@ class App extends Component {
         <div>
           <Sidebar.Pushable>
             <Media
-              query="(max-width:650)" //650px could insure the right menu showed completely
+              query="(max-width:650px)" //650px could insure the right menu showed completely
               render={() => (
                 <Sidebar
                   as={Menu}
