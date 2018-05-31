@@ -121,7 +121,7 @@ class App extends Component {
                 <Sidebar
                   as={Menu}
                   animation="overlay"
-                  width="thin"
+                  width="wide"
                   visible={this.state.sidebarVisible}
                   vertical
                 >
