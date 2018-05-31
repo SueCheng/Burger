@@ -40,23 +40,27 @@ class buildControlForm extends Component {
       >
         <TotalPrice formValues={this.props.formValues} />
         {ctrls}
-        <Grid.Row>
-          <Grid.Column computer={5}>
-            <Button type="button" onClick={this.showModal.bind(this)}>
-              Order
-            </Button>
-            <ConfirmModal
-              open={this.state.openModal}
-              onClose={this.closeModal.bind(this)}
-              resetParentForm={this.props.reset.bind(this)}
-            />
-          </Grid.Column>
-          <Grid.Column computer={5}>
-            <Button type="button" onClick={this.props.reset}>
-              Reset
-            </Button>
-          </Grid.Column>
-        </Grid.Row>
+        <div>
+          <Button
+            type="button"
+            style={{ marginBottom: 10, marginRight: 10 }}
+            onClick={this.showModal.bind(this)}
+          >
+            Order
+          </Button>
+          <Button
+            type="button"
+            style={{ marginRight: 10 }}
+            onClick={this.props.reset}
+          >
+            Reset
+          </Button>
+          <ConfirmModal
+            open={this.state.openModal}
+            onClose={this.closeModal.bind(this)}
+            resetParentForm={this.props.reset.bind(this)}
+          />
+        </div>
       </Grid>
     );
   }

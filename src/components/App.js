@@ -97,6 +97,9 @@ class App extends Component {
               to="/signinlocal"
               icon="user"
               text="Login Locally"
+              onClick={(event, data) => {
+                this.setState({ sidebarVisible: false });
+              }}
             />
             <Dropdown.Item
               as={NavLink}
@@ -104,6 +107,9 @@ class App extends Component {
               to="/signup"
               icon="signup"
               text="Signup"
+              onClick={(event, data) => {
+                this.setState({ sidebarVisible: false });
+              }}
             />
           </Dropdown.Menu>
         </Dropdown>
@@ -134,10 +140,24 @@ class App extends Component {
                       />
                     </div>
                   </Menu.Item>
-                  <Menu.Item as={NavLink} exact to="/">
+                  <Menu.Item
+                    as={NavLink}
+                    exact
+                    to="/"
+                    onClick={(event, data) => {
+                      this.setState({ sidebarVisible: false });
+                    }}
+                  >
                     Burger Builder
                   </Menu.Item>
-                  <Menu.Item as={NavLink} exact to="/shoppingcart">
+                  <Menu.Item
+                    as={NavLink}
+                    exact
+                    to="/shoppingcart"
+                    onClick={(event, data) => {
+                      this.setState({ sidebarVisible: false });
+                    }}
+                  >
                     <Icon name="cart" />
                     Cart
                   </Menu.Item>

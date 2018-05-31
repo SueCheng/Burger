@@ -1,3 +1,14 @@
 .ui.sidebar {
   overflow: visible !important;
 }
+.pushable {
+  overflow: visible !important;
+  min-width: 570px;
+}
+.pusher {
+  overflow: visible !important;
+}
+.ui.vertical.ui.overlay.left.wide.visible.sidebar.menu {
+  height: auto !important;
+  max-height: none;
+}

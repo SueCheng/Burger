@@ -53,7 +53,7 @@ class AddressForm extends Component {
         <Message>
           <p>Don't enter Post Box address,Please enter physical address </p>
         </Message>
-        <Form.Group widths="equal">
+        <Form.Group unstackable={true} widths="2">
           <Form.Button type="submit">Order</Form.Button>
           <Form.Button onClick={() => this.props.history.push("/")}>
             Cancel
