@@ -7,7 +7,7 @@ import { Grid, Button } from "semantic-ui-react";
 import { TotalPrice } from "./TotalPrice";
 import ConfirmModal from "./ConfirmModal";
 
-class buildControlForm extends Component {
+export class BuildControlForm extends Component {
   state = { openModal: false };
   showModal() {
     this.setState({ openModal: true });
@@ -66,14 +66,14 @@ class buildControlForm extends Component {
   }
 }
 
-buildControlForm = connect(state => ({
+let WrappedBuildControlForm = connect(state => ({
   formValues: state.form.buildControlForm.values
-}))(buildControlForm);
+}))(BuildControlForm);
 
-buildControlForm = reduxForm({
+WrappedBuildControlForm = reduxForm({
   form: "buildControlForm",
   enableReinitialize: true,
   initialValues: { salad: 0, bacon: 0, cheese: 0, meat: 0 }
-})(buildControlForm);
+})(WrappedBuildControlForm);
 
-export default buildControlForm;
+export default WrappedBuildControlForm;

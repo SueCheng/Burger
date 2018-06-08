@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create snapshot for givin fake data  snapshot with 2 cartItems 1`] = `
+<Container>
+  <Table
+    as="table"
+    celled={true}
+    structured={true}
+  >
+    <TableHeader
+      as="thead"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        textAlign="center"
+      >
+        <TableHeaderCell
+          as="th"
+          key="category"
+        >
+          category
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="quantity"
+        >
+          quantity
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="price"
+        >
+          price
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="config"
+        >
+          config
+        </TableHeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="0"
+        textAlign="center"
+      >
+        <TableCell
+          as="td"
+          key="category"
+        >
+          burger
+        </TableCell>
+        <TableCell
+          as="td"
+          key="quantity"
+        >
+          1
+        </TableCell>
+        <TableCell
+          as="td"
+          key="price"
+        >
+          3.2
+        </TableCell>
+        <TableCell
+          as="td"
+          key="config"
+        >
+          {"salad":0,"cheese":1,"bacon":0,"meat":0}
+        </TableCell>
+      </TableRow>
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="1"
+        textAlign="center"
+      >
+        <TableCell
+          as="td"
+          key="category"
+        >
+          burger
+        </TableCell>
+        <TableCell
+          as="td"
+          key="quantity"
+        >
+          1
+        </TableCell>
+        <TableCell
+          as="td"
+          key="price"
+        >
+          14.5
+        </TableCell>
+        <TableCell
+          as="td"
+          key="config"
+        >
+          {"salad":0,"cheese":1,"bacon":2,"meat":1}
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+  <Button
+    as={[Function]}
+    exact={true}
+    to="/checkout"
+  >
+    Go to Pay
+  </Button>
+</Container>
+`;
+
+exports[`create snapshot for givin fake data  snapshot with loading 1`] = `
+<Segment>
+  <Dimmer
+    active={true}
+    inverted={true}
+  >
+    <Loader
+      inverted={true}
+      size="medium"
+    >
+      Loading
+    </Loader>
+  </Dimmer>
+  <div
+    className="scLoadingBackground"
+  />
+</Segment>
+`;
+
+exports[`create snapshot for givin fake data  snapshot with no cartItem and loading false 1`] = `
+<Container>
+  <Table
+    as="table"
+    celled={true}
+    structured={true}
+  >
+    <TableHeader
+      as="thead"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        textAlign="center"
+      >
+        <TableHeaderCell
+          as="th"
+          key="category"
+        >
+          category
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="quantity"
+        >
+          quantity
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="price"
+        >
+          price
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          key="config"
+        >
+          config
+        </TableHeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    />
+  </Table>
+</Container>
+`;

@@ -21,7 +21,7 @@ import Aux from "./hoc/aux";
   price: Number,
   config: { type: Map, of: Number }
   */
-class ShoppingCart extends Component {
+export class ShoppingCart extends Component {
   componentDidMount() {
     if (!this.props.isCheckoutPage)
       //if it's checkout page,don't fetch again
@@ -98,7 +98,9 @@ function mapStateToProps(state) {
   };
 }
 
-ShoppingCart = connect(mapStateToProps, { fetchShoppingcart })(ShoppingCart);
-ShoppingCart = errorShowModal(ShoppingCart, axiosInstance);
+let WrappedShoppingCart = connect(mapStateToProps, { fetchShoppingcart })(
+  ShoppingCart
+);
+WrappedShoppingCart = errorShowModal(WrappedShoppingCart, axiosInstance);
 
-export default ShoppingCart;
+export default WrappedShoppingCart;

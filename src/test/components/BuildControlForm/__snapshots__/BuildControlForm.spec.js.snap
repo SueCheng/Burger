@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test pure BuildControlForm create snapshot for bare BuildControlForm component 1`] = `
+<Grid
+  as="form"
+  centered={true}
+>
+  <TotalPrice
+    formValues={
+      Object {
+        "bacon": 1,
+        "cheese": 1,
+        "meat": 0,
+        "salad": 0,
+      }
+    }
+  />
+  <Field
+    component={[Function]}
+    key="salad"
+    label="salad"
+    name="salad"
+  />
+  <Field
+    component={[Function]}
+    key="bacon"
+    label="bacon"
+    name="bacon"
+  />
+  <Field
+    component={[Function]}
+    key="cheese"
+    label="cheese"
+    name="cheese"
+  />
+  <Field
+    component={[Function]}
+    key="meat"
+    label="meat"
+    name="meat"
+  />
+  <div>
+    <Button
+      as="button"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginBottom": 10,
+          "marginRight": 10,
+        }
+      }
+      type="button"
+    >
+      Order
+    </Button>
+    <Button
+      as="button"
+      onClick={[MockFunction]}
+      style={
+        Object {
+          "marginRight": 10,
+        }
+      }
+      type="button"
+    >
+      Reset
+    </Button>
+    <Component
+      onClose={[Function]}
+      open={false}
+      resetParentForm={[Function]}
+    />
+  </div>
+</Grid>
+`;
