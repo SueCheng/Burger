@@ -1,7 +1,31 @@
 import axiosInstance from "../axios-instance";
-import { FETCH_AUTH, FETCH_SHOPPINGCART, FETCH_ORDERS } from "./types";
+import {
+  FETCH_AUTH,
+  FETCH_SHOPPINGCART,
+  FETCH_ORDERS,
+  FETCH_RESTAURANT_LIST
+} from "./types";
 import _ from "lodash";
 
+export const fetchRestaurantList = key => async dispatch => {
+  let res;
+  try {
+    res = await axiosInstance.get(`/data/restaurantlist/search?key=${key}`);
+  } catch (error) {
+    //if fetch error,do nothing,stay in the same page,inform the user the error
+    console.log("fetch restaurant list error", error);
+    return error.message;
+  }
+  if (res.data && res.data.length && res.data.length > 0) {
+    dispatch({
+      type: FETCH_RESTAURANT_LIST,
+      payload: res.data
+    });
+    return;
+  }
+  //if there is no list found,inform user no result
+  return "no list found";
+};
 export const signUp = userInfo => async dispatch => {
   let res;
   try {

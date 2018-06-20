@@ -3,6 +3,7 @@ import shoppingcartReducer from "./shoppingcartReducer";
 import ordersReducer from "./ordersReducer";
 import { reducer as formReducer } from "redux-form";
 import authReducer from "./authReducer";
+import restaurantReducer from "./restaurantReducer";
 /*
 function rootReducer(state, action) {
   const combineReducer = combineReducers({
@@ -36,5 +37,6 @@ export default combineReducers({
   auth: authReducer,
   form: formReducer,
   shoppingcart: shoppingcartReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  restaurantList: restaurantReducer
 });

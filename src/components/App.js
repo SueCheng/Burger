@@ -10,7 +10,8 @@ import NotFound from "./NotFound";
 import SignupForm from "./SignupForm";
 import SigninLocalForm from "./SigninLocalForm";
 import ShoppingCart from "./ShoppingCart";
-
+import SearchEntry from "./SearchEntry";
+import Pizza from "./Pizza";
 import BurgerBuilder from "./BurgerBuilder/BurgerBuilder";
 import { Sidebar, Menu, Image, Dropdown, Icon } from "semantic-ui-react";
 import Media from "react-media";
@@ -157,7 +158,7 @@ class App extends Component {
                   <Menu.Item
                     as={NavLink}
                     exact
-                    to="/"
+                    to="/Burger"
                     onClick={(event, data) => {
                       this.setState({ sidebarVisible: false });
                     }}
@@ -185,9 +186,11 @@ class App extends Component {
                 renderAuthContent={this.renderAuthContent.bind(this)}
               />
               <Switch>
+                <Route exact path="/" component={SearchEntry} />
                 <Route exact path="/signup" component={SignupForm} />
                 <Route exact path="/signinlocal" component={SigninLocalForm} />
-                <Route exact path="/" component={BurgerBuilder} />
+                <Route exact path="/Burger" component={BurgerBuilder} />
+                <Route exact path="/Pizza" component={Pizza} />
                 <Route
                   exact
                   path="/shoppingcart"

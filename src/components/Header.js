@@ -38,7 +38,7 @@ class Header extends Component {
                   </div>
                 </Menu.Item>
                 <Menu.Menu position="right">
-                  <Menu.Item as={NavLink} exact to="/">
+                  <Menu.Item as={NavLink} exact to="/Burger">
                     Burger Builder
                   </Menu.Item>
                   <Menu.Item as={NavLink} exact to="/shoppingcart">
