@@ -45,8 +45,8 @@ class SearchEntry extends Component {
     });
   };
   gotoMenu(menu) {
-    if (menu === "Burger") this.props.history.push("/Burger");
-    else this.props.history.push("/Pizza");
+    if (menu === "Burger") this.props.history.push("/burger");
+    else this.props.history.push("/pizza");
   }
   renderResult() {
     return this.props.restaurantList.map(restaurantInfo => {

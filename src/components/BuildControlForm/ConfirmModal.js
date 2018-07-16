@@ -1,14 +1,20 @@
 import React, { Component } from "react";
-import { Button, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { INGREDIENTS } from "../../config/ingredients.js";
-import { Grid, List, Label } from "semantic-ui-react";
+import { Button, Modal, Grid, List, Label } from "semantic-ui-react";
 import { TotalPrice, calculatePrice } from "./TotalPrice";
 import { withRouter } from "react-router";
 import axiosInstance from "../../axios-instance";
 import errorShowModal from "../hoc/errorShowModal";
 import { addItemToShoppingcart } from "../../actions";
 
+var formValueToString = function(formValue) {
+  let result = {};
+  Object.keys(formValue).forEach(
+    key => (result[key] = formValue[key].toString())
+  );
+  return result;
+};
 class ConfirmModal extends Component {
   render() {
     return (
@@ -38,12 +44,14 @@ class ConfirmModal extends Component {
           <Button
             positive
             onClick={() => {
-              this.props.addItemToShoppingcart({
-                category: "Burger",
-                quantity: 1,
-                price: calculatePrice(this.props.formValues),
-                config: { ...this.props.formValues }
-              });
+              this.props.addItemToShoppingcart([
+                {
+                  category: "Burger",
+                  quantity: 1,
+                  price: calculatePrice(this.props.formValues),
+                  config: formValueToString(this.props.formValues)
+                }
+              ]);
               //close this ConfirmModal,reset parent form and don't respond to server submission fail
               this.props.onClose();
               this.props.resetParentForm();

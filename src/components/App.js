@@ -26,12 +26,16 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
-
+  componentWillUnmount() {
+    //if this.keyPressFunc is undefined, there should be no harm
+    document.removeEventListener("keydown", this.keyPressFunc);
+  }
   componentWillUpdate(nextProps, nextState) {
+    this.keyPressFunc = this.handleKeyPress.bind(this);
     if (nextState.sidebarVisible === true) {
-      document.addEventListener("keydown", this.handleKeyPress);
+      document.addEventListener("keydown", this.keyPressFunc);
     } else {
-      document.removeEventListener("keydown", this.handleKeyPress);
+      document.removeEventListener("keydown", this.keyPressFunc);
     }
   }
   handleKeyPress = e => {
@@ -146,7 +150,13 @@ class App extends Component {
                   visible={this.state.sidebarVisible}
                   vertical
                 >
-                  <Menu.Item header>
+                  <Menu.Item
+                    as={NavLink}
+                    exact
+                    to="/"
+                    header
+                    onClick={this.hideSidebarIfVisible.bind(this)}
+                  >
                     <div className="imgBackground">
                       <Image
                         size="tiny"
@@ -155,23 +165,30 @@ class App extends Component {
                       />
                     </div>
                   </Menu.Item>
-                  <Menu.Item
-                    as={NavLink}
-                    exact
-                    to="/Burger"
-                    onClick={(event, data) => {
-                      this.setState({ sidebarVisible: false });
-                    }}
-                  >
-                    Burger Builder
-                  </Menu.Item>
+
+                  <Dropdown item text="Menu">
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        as={NavLink}
+                        exact
+                        to="/burger"
+                        onClick={this.hideSidebarIfVisible.bind(this)}
+                        text="Burger Builder"
+                      />
+                      <Dropdown.Item
+                        as={NavLink}
+                        exact
+                        to="/pizza"
+                        onClick={this.hideSidebarIfVisible.bind(this)}
+                        text="Pizza"
+                      />
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <Menu.Item
                     as={NavLink}
                     exact
                     to="/shoppingcart"
-                    onClick={(event, data) => {
-                      this.setState({ sidebarVisible: false });
-                    }}
+                    onClick={this.hideSidebarIfVisible.bind(this)}
                   >
                     <Icon name="cart" />
                     Cart
@@ -185,23 +202,29 @@ class App extends Component {
                 toggleSidebar={this.toggleSidebar.bind(this)}
                 renderAuthContent={this.renderAuthContent.bind(this)}
               />
-              <Switch>
-                <Route exact path="/" component={SearchEntry} />
-                <Route exact path="/signup" component={SignupForm} />
-                <Route exact path="/signinlocal" component={SigninLocalForm} />
-                <Route exact path="/Burger" component={BurgerBuilder} />
-                <Route exact path="/Pizza" component={Pizza} />
-                <Route
-                  exact
-                  path="/shoppingcart"
-                  render={props => (
-                    <ShoppingCart isCheckoutPage={false} {...props} />
-                  )}
-                />
-                <Route exact path="/orders" component={Orders} />
-                <Route exact path="/checkout" component={Checkout} />
-                <Route component={NotFound} />
-              </Switch>
+              <div className="pageWrapper">
+                <Switch>
+                  <Route exact path="/" component={SearchEntry} />
+                  <Route exact path="/signup" component={SignupForm} />
+                  <Route
+                    exact
+                    path="/signinlocal"
+                    component={SigninLocalForm}
+                  />
+                  <Route exact path="/burger" component={BurgerBuilder} />
+                  <Route exact path="/pizza" component={Pizza} />
+                  <Route
+                    exact
+                    path="/shoppingcart"
+                    render={props => (
+                      <ShoppingCart isCheckoutPage={false} {...props} />
+                    )}
+                  />
+                  <Route exact path="/orders" component={Orders} />
+                  <Route exact path="/checkout" component={Checkout} />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </div>

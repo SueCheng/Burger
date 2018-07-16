@@ -1,3 +1,6 @@
+.pushable:not(body) {
+  transform: none;
+}
 .ui.sidebar {
   overflow: visible !important;
 }
@@ -14,4 +17,11 @@
 .ui.wide.left.sidebar {
   //make long menu string could show align with the little arrow and won't occupy too much width
   width: 300px;
+}
+.pageWrapper {
+  margin-top: 110px;
+}
+//make dimmer's relative element z-index less than header to show header submenu when loading
+.zindexLessHead {
+  z-index: 2;
 }

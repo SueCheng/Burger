@@ -60,7 +60,7 @@ class Orders extends Component {
         <List divided>
           <List.Item>
             <List.Content floated="right">
-              Total Price {order.totalPrice}
+              Total Price {order.totalPrice.toFixed(1)}
             </List.Content>
           </List.Item>
           <List.Item>
@@ -106,7 +106,7 @@ class Orders extends Component {
     if (this.props.loading) {
       //show loading
       return (
-        <Segment>
+        <Segment className="zindexLessHead">
           <Dimmer active inverted>
             <Loader size="large" inverted>
               Loading

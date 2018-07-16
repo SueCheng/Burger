@@ -19,7 +19,7 @@ import Aux from "./hoc/aux";
  category: String,
   quantity: Number,
   price: Number,
-  config: { type: Map, of: Number }
+  config: { type: Map, of: String }
   */
 export class ShoppingCart extends Component {
   componentDidMount() {
@@ -66,7 +66,7 @@ export class ShoppingCart extends Component {
     if (this.props.loading)
       //show loading
       return (
-        <Segment>
+        <Segment className="zindexLessHead">
           <Dimmer active inverted>
             <Loader size="medium" inverted>
               Loading

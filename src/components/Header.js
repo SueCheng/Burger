@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Menu, Image, Icon } from "semantic-ui-react";
+import { Menu, Image, Icon, Dropdown } from "semantic-ui-react";
 import Media from "react-media";
 import { NavLink } from "react-router-dom";
 
 class Header extends Component {
   render() {
     return (
-      <div className="header">
+      <div className="headerMenu">
         <Media query="(max-width:650px)">
           {matches =>
             matches ? (
@@ -28,7 +28,7 @@ class Header extends Component {
               </Menu>
             ) : (
               <Menu color="brown" size="massive" inverted>
-                <Menu.Item header>
+                <Menu.Item as={NavLink} exact to="/" header>
                   <div className="imgBackground">
                     <Image
                       size="tiny"
@@ -38,9 +38,22 @@ class Header extends Component {
                   </div>
                 </Menu.Item>
                 <Menu.Menu position="right">
-                  <Menu.Item as={NavLink} exact to="/Burger">
-                    Burger Builder
-                  </Menu.Item>
+                  <Dropdown item text="Menu">
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        as={NavLink}
+                        exact
+                        to="/burger"
+                        text="Burger Builder"
+                      />
+                      <Dropdown.Item
+                        as={NavLink}
+                        exact
+                        to="/pizza"
+                        text="Pizza"
+                      />
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <Menu.Item as={NavLink} exact to="/shoppingcart">
                     <Icon name="cart" />
                     Cart
