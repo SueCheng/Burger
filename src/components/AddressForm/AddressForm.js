@@ -29,7 +29,7 @@ class AddressForm extends Component {
     //add order success then go to order page, or if fail ,show the specific reason
     res.then(res => {
       if (res) {
-        if (res.status === 200) this.props.history.push("/order");
+        if (res.status === 200) this.props.history.push("/orders");
         else throw new SubmissionError({ _error: res.data });
       } else {
         throw new SubmissionError({ _error: "Network Error Detected" });
