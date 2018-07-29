@@ -4,17 +4,42 @@ import { connect } from "react-redux";
 import { fetchUser } from "../actions";
 
 import Header from "./Header";
-import Checkout from "./Checkout";
-import Orders from "./Orders";
 import NotFound from "./NotFound";
-import SignupForm from "./SignupForm";
 import SigninLocalForm from "./SigninLocalForm";
 import ShoppingCart from "./ShoppingCart";
-import SearchEntry from "./SearchEntry";
-import Pizza from "./Pizza";
-import BurgerBuilder from "./BurgerBuilder/BurgerBuilder";
 import { Sidebar, Menu, Image, Dropdown, Icon } from "semantic-ui-react";
 import Media from "react-media";
+import Loadable from "react-loadable";
+
+function Loading() {
+  return <h3>LoadinG...</h3>;
+}
+
+const LoadableSearchEntry = Loadable({
+  loader: () => import(/*webpackChunkName:"searchEntry"*/ "./SearchEntry"),
+  loading: Loading
+});
+const LoadableBurgerBuilder = Loadable({
+  loader: () =>
+    import(/*webpackChunkName:"burgerBuilder"*/ "./BurgerBuilder/BurgerBuilder"),
+  loading: Loading
+});
+const LoadablePizza = Loadable({
+  loader: () => import(/*webpackChunkName:"pizza"*/ "./Pizza"),
+  loading: Loading
+});
+const LoadableOrders = Loadable({
+  loader: () => import(/*webpackChunkName:"orders"*/ "./Orders"),
+  loading: Loading
+});
+const LoadableSignup = Loadable({
+  loader: () => import(/*webpackChunkName:"signupForm"*/ "./SignupForm"),
+  loading: Loading
+});
+const LoadableCheckout = Loadable({
+  loader: () => import(/*webpackChunkName:"checkout"*/ "./Checkout"),
+  loading: Loading
+});
 
 class App extends Component {
   constructor(props) {
@@ -204,15 +229,19 @@ class App extends Component {
               />
               <div className="pageWrapper">
                 <Switch>
-                  <Route exact path="/" component={SearchEntry} />
-                  <Route exact path="/signup" component={SignupForm} />
+                  <Route exact path="/" component={LoadableSearchEntry} />
+                  <Route exact path="/signup" component={LoadableSignup} />
                   <Route
                     exact
                     path="/signinlocal"
                     component={SigninLocalForm}
                   />
-                  <Route exact path="/burger" component={BurgerBuilder} />
-                  <Route exact path="/pizza" component={Pizza} />
+                  <Route
+                    exact
+                    path="/burger"
+                    component={LoadableBurgerBuilder}
+                  />
+                  <Route exact path="/pizza" component={LoadablePizza} />
                   <Route
                     exact
                     path="/shoppingcart"
@@ -220,8 +249,8 @@ class App extends Component {
                       <ShoppingCart isCheckoutPage={false} {...props} />
                     )}
                   />
-                  <Route exact path="/orders" component={Orders} />
-                  <Route exact path="/checkout" component={Checkout} />
+                  <Route exact path="/orders" component={LoadableOrders} />
+                  <Route exact path="/checkout" component={LoadableCheckout} />
                   <Route component={NotFound} />
                 </Switch>
               </div>

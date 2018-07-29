@@ -55,15 +55,34 @@ module.exports = {
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? "source-map" : false,
+  entry: {
+    index: paths.appIndexJs,
+    vendors: [
+      require.resolve("./polyfills"),
+      "axios",
+      "lodash",
+      "react",
+      "react-dom",
+      "react-google-maps",
+      "react-media",
+      "react-redux",
+      "react-router",
+      "react-router-dom",
+      "redux",
+      "redux-form",
+      "redux-thunk",
+      "semantic-ui-react"
+    ]
+  },
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve("./polyfills"), paths.appIndexJs],
+  //entry: [require.resolve("./polyfills"), paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
     // We don't currently advertise code splitting but Webpack supports it.
-    filename: "static/js/[name].[chunkhash:8].js",
+    filename: "static/js/[name].[chunkhash:6].js",
     chunkFilename: "static/js/[name].[chunkhash:8].chunk.js",
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
@@ -282,6 +301,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      names: "share"
+      //names: ["share", "manifest"]
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
