@@ -38,9 +38,9 @@ export class ShoppingCart extends Component {
       </Table.Header>
     );
   }
-  cartItemCtrls(cartItem, index) {
+  cartItemCtrls(cartItem, index, bigScreen) {
     return (
-      <Table.Row key={index} textAlign="center">
+      <Table.Row key={index} textAlign={bigScreen ? "center" : "left"}>
         {itemSchema.map(itemKey => {
           if (itemKey === "config")
             return (
@@ -75,20 +75,23 @@ export class ShoppingCart extends Component {
           <div className="scLoadingBackground" />
         </Segment>
       );
-    else
+    else {
+      let bigScreen = true;
+      if (window.matchMedia("(max-width:650px)").matches) bigScreen = false;
       return (
         <Container>
           <Table structured celled>
-            {this.headerCtrls()}
+            {bigScreen && this.headerCtrls()}
             <Table.Body>
               {this.props.cartItems.map((cartItem, index) =>
-                this.cartItemCtrls(cartItem, index)
+                this.cartItemCtrls(cartItem, index, bigScreen)
               )}
             </Table.Body>
           </Table>
           {this.gotoPay()}
         </Container>
       );
+    }
   }
 }
 function mapStateToProps(state) {

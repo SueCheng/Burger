@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchRestaurantList } from "../actions";
 import { Grid, Search, Card, Message, Icon, Button } from "semantic-ui-react";
 import MapwithMarkInfoWindow from "./MapwithMarkInfoWindow";
+import { GOOGLE_MAP_KEY } from "../config/googleMapKey";
 
 import _ from "lodash";
 
@@ -73,7 +74,7 @@ class SearchEntry extends Component {
     //})
     return (
       <MapwithMarkInfoWindow
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZ9OGjcY98pJPsz3rgFjPtx2ddo7sBf8&v=3.exp&libraries=geometry,drawing,places"
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}

@@ -30,9 +30,9 @@ class Orders extends Component {
       </Table.Header>
     );
   }
-  orderItemCtrls(orderItem, index) {
+  orderItemCtrls(orderItem, index, bigScreen) {
     return (
-      <Table.Row key={index} textAlign="center">
+      <Table.Row key={index} textAlign={bigScreen ? "center" : "left"}>
         {itemSchema.map(itemKey => {
           if (itemKey === "config")
             return (
@@ -47,27 +47,33 @@ class Orders extends Component {
     );
   }
   orderTable(order, index) {
+    let bigScreen = true;
+    if (window.matchMedia("(max-width:650px)").matches) bigScreen = false;
     return (
       <Fragment key={index}>
         <Table structured celled>
-          {this.headerCtrls()}
+          {bigScreen && this.headerCtrls()}
           <Table.Body>
             {order.items.map((orderItem, index) =>
-              this.orderItemCtrls(orderItem, index)
+              this.orderItemCtrls(orderItem, index, bigScreen)
             )}
           </Table.Body>
         </Table>
         <List divided>
           <List.Item>
-            <List.Content floated="right">
+            <List.Content floated={bigScreen ? "right" : "left"}>
               Total Price {order.totalPrice.toFixed(1)}
             </List.Content>
           </List.Item>
           <List.Item>
-            <List.Content floated="right">Address {order.address}</List.Content>
+            <List.Content floated={bigScreen ? "right" : "left"}>
+              Address {order.address}
+            </List.Content>
           </List.Item>
           <List.Item>
-            <List.Content floated="right">Status {order.status}</List.Content>
+            <List.Content floated={bigScreen ? "right" : "left"}>
+              Status {order.status}
+            </List.Content>
           </List.Item>
         </List>
       </Fragment>
