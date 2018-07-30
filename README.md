@@ -16,6 +16,10 @@ Full stack JavaScript app （client side）that lets users log in to customize b
 10. the GUI will display responsively on screen with different widths and height.
 11. Any error(GUI error,network error,system error etc)will get immediately clear hint on the current page or a modal dialog
 
+### animation of senario
+![Alt Text]()
+
+
 ### Technology Used:
 
 * Passport (Local/JWT/Facebook)

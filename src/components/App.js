@@ -12,7 +12,7 @@ import Media from "react-media";
 import Loadable from "react-loadable";
 
 function Loading() {
-  return <h3>LoadinG...</h3>;
+  return <h3>Loading...</h3>;
 }
 
 const LoadableSearchEntry = Loadable({
