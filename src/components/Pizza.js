@@ -4,7 +4,6 @@ import {
   Grid,
   Segment,
   List,
-  Rail,
   Accordion,
   Icon,
   Button,
@@ -380,47 +379,43 @@ class Pizza extends Component {
   renderWideScreen() {
     return (
       <Grid centered>
-        <Grid.Column width={10}>
-          <Segment>
-            {this.renderAccordion()}
-            <Rail position="left">
-              <MySticky push={false} top={110}>
-                <Segment>
-                  <List link relaxed="very">
-                    <List.Item active={this.state.pizzaStyle}>
-                      <div style={{ verticalAlign: "middle" }}>
-                        <Icon size="big" color="yellow" name="chart pie" />Pizza
-                      </div>
-                    </List.Item>
-                    <List.Item active={this.state.sideStyle}>
-                      <div style={{ verticalAlign: "middle" }}>
-                        <Icon size="big" color="yellow" name="lemon" />Side
-                      </div>
-                    </List.Item>
-                    <List.Item active={this.state.drinkStyle}>
-                      <div style={{ verticalAlign: "middle" }}>
-                        <Icon size="big" color="yellow" name="coffee" />Drink
-                      </div>
-                    </List.Item>
-                  </List>
-                </Segment>
-              </MySticky>
-            </Rail>
-            <Rail position="right">
-              <MySticky push={false} top={110}>
-                <Segment padded>
-                  <Button
-                    fluid
-                    color="green"
-                    onClick={this.handleAddShoppingcart.bind(this)}
-                  >
-                    Add to Shoppingcart
-                  </Button>
-                  {this.renderShoppingcartItems()}
-                </Segment>
-              </MySticky>
-            </Rail>
-          </Segment>
+        <Grid.Column width={3}>
+          <MySticky push={false} top={110}>
+            <Segment>
+              <List link relaxed="very">
+                <List.Item active={this.state.pizzaStyle}>
+                  <div style={{ verticalAlign: "middle" }}>
+                    <Icon size="big" color="yellow" name="chart pie" />Pizza
+                  </div>
+                </List.Item>
+                <List.Item active={this.state.sideStyle}>
+                  <div style={{ verticalAlign: "middle" }}>
+                    <Icon size="big" color="yellow" name="lemon" />Side
+                  </div>
+                </List.Item>
+                <List.Item active={this.state.drinkStyle}>
+                  <div style={{ verticalAlign: "middle" }}>
+                    <Icon size="big" color="yellow" name="coffee" />Drink
+                  </div>
+                </List.Item>
+              </List>
+            </Segment>
+          </MySticky>
+        </Grid.Column>
+        <Grid.Column width={10}>{this.renderAccordion()}</Grid.Column>
+        <Grid.Column width={3}>
+          <MySticky push={false} top={110}>
+            <Segment padded>
+              <Button
+                fluid
+                color="green"
+                onClick={this.handleAddShoppingcart.bind(this)}
+              >
+                Add to Shoppingcart
+              </Button>
+              {this.renderShoppingcartItems()}
+            </Segment>
+          </MySticky>
         </Grid.Column>
       </Grid>
     );

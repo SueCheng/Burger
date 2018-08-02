@@ -17,12 +17,13 @@ Full stack JavaScript app （client side）that lets users log in to customize b
 11. Any error(GUI error,network error,system error etc)will get immediately clear hint on the current page or a modal dialog
 
 ### animation of senario
-![Alt Text]()
+![alt unauthorizeduser](https://github.com/SueCheng/BurgerServer/blob/master/unauthorizeduser.gif)
+![alt authorizeduser](https://github.com/SueCheng/BurgerServer/blob/master/authorizeduser.gif)
 
 
 ### Technology Used:
 
-* Passport (Local/JWT/Facebook)
+* Passport (Local/Google/Facebook)
 * React
 * Redux
 * React-Redux

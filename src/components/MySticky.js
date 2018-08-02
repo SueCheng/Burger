@@ -9,7 +9,7 @@ export default class MySticky extends Component {
     else
       this.state = {
         ticking: false,
-        style: { position: "fixed", width: 272, top: props.top }
+        style: { position: "fixed", width: "15%", top: props.top }
       };
   }
 
